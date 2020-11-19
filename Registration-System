@@ -1,0 +1,118 @@
+import json
+class dictGenerator(dict):
+    def __init__(self):
+        self=dict()
+    def addKeyValue(self,key,value):
+        self[key]=value
+
+data=dictGenerator()
+data.addKeyValue("users",[])
+
+def createDict(ad,soyad,username,password):
+        innerdict=dictGenerator()
+        innerdict.addKeyValue("name",ad)
+        innerdict.addKeyValue("surname",soyad)
+        innerdict.addKeyValue("username",username)
+        innerdict.addKeyValue("password",password)
+        return innerdict
+
+def userYarat():
+    inputad=input("Ad: ")
+    inputsoyad=input("Soyad: ")
+    inputusername=input("Username: ")
+    inputpassword=input("Password: ")
+    data["users"].append(createDict(inputad,inputsoyad,inputusername,inputpassword))
+
+def qeydiyyat():
+    userSayi=int(input("User sayini teyin edin:"))
+    for say in range(userSayi):
+        print(f"{say+1}-ci useri daxil edin")
+        userYarat()
+
+
+
+def adaGoreMelumatlarinGosterilmesi():
+    telebOlunanAd=input("Melumatlarini gormek istediyiniz userin adini daxil edin: ")
+    for i in data["users"]:
+        if telebOlunanAd==i['name']:
+            print(f"Ad: {i['name']}, Soyad: {i['surname']}, Username: {i['username']},Password:{i['password']}")
+            break
+    else:
+        print("Bu adda user yoxdur!")
+
+
+def adiEnUzunOlanIstifadeciniTap():
+        maxlen=[]
+        maxlenName=[]
+        for user in data["users"]:
+            t=len(user["name"])
+            maxlen.append(t)
+            maxlenName.append(user["name"])
+        maxlen.sort()
+        for k in maxlenName:
+            if len(k)==maxlen[-1]:
+                print(f"Adi en uzun olan istifadeci: {k}")
+
+def soyadindaOvOlanlariGoster():
+    check=False
+    for a in data["users"]:
+        if "ov" in a["surname"]:
+            print(f"Soyadinda 'ov' olan istifadecinin Adi: {a['name']}, Soyadi: {a['surname']}")
+            check=True
+
+    if check==False:
+          print("Bele soyadi olan yoxdur!")
+
+
+def passwordu8denUzunIstifadeci():
+        for x in data["users"]:
+            if len(x['password'])>8:
+                print(f"Passwordu 8-den uzun olan istifadeci: {x['password']}")
+
+
+def butunIstifadecileriGoster():
+    for istifadeciler in data["users"]:
+        print(istifadeciler)
+
+with open("database.json","w") as conn:
+    json.dump(data,conn)
+
+
+
+print("""
+==========================================================================
+Aparmaq istediyiniz emeliyyatinnomresini secin:
+==========================================================================
+0.Proqrami dayandir
+1.Qeydiyyat prosesine baslayin
+2.Ada gore userin melumatlarini gosterin
+3.Adi en uzun olan userin melumatlarini gosterin
+4.Soyadinda 'ov' olan istifadecileri gosterin
+5.Passwordu en uzun olan istifadecinin melumatlarini gosterin
+6.Butun userlari goster
+==========================================================================
+==========================================================================
+""")
+
+while True:
+    n =int(input("Emeliyyat nomresini daxil edin: "))
+    if n==0:
+        print("Tesekkurler")
+        break
+    elif n==1:
+        qeydiyyat()
+        with open("database.json","w") as conn:
+            json.dump(data,conn)
+    elif n==2:
+        adaGoreMelumatlarinGosterilmesi()
+    elif n==3:
+        adiEnUzunOlanIstifadeciniTap()
+    elif n==4:
+        soyadindaOvOlanlariGoster()
+    elif n==5:
+        passwordu8denUzunIstifadeci()
+    elif n==6:
+        butunIstifadecileriGoster()
+    else:
+        print("Qeyd edilen emeliyyat nomrelerinden birini secin!")
+        break
