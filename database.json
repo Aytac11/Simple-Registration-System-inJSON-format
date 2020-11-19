@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "name": "Aytac",
+      "surname": "Huseynova",
+      "username": "Tac",
+      "password": "1234567987"
+    },
+    {
+      "name": "Yusif",
+      "surname": "Kocerli",
+      "username": "yus",
+      "password": "83737"
+    },
+    {
+      "name": "Ayla",
+      "surname": "Hesenova",
+      "username": "ay",
+      "password": "9857454654"
+    },
+    {
+      "name": "Sevinc",
+      "surname": "Qemberova",
+      "username": "sevc",
+      "password": "djfdfjhdff"
+    }
+  ]
+}
